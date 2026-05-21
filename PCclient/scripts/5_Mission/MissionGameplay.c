@@ -1,3 +1,4 @@
+#ifndef SERVER
 modded class MissionGameplay
 {
 	override void OnRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx)
@@ -10,3 +11,4 @@ modded class MissionGameplay
 		}
 	}
 }
+#endif

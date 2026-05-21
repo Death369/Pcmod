@@ -46,7 +46,7 @@ class PCSpawnHelper
 			bool collision = false;
 			foreach (Object obj : objects)
 			{
-				if (obj.IsInherited(House) || obj.IsInherited(RockBase) || obj.IsInherited(TreeHard) || obj.IsInherited(Road) || obj.IsInherited(Building)) { collision = true; break; }
+				if (obj.IsInherited(House) || obj.IsInherited(RockBase) || obj.IsInherited(TreeHard) || obj.IsInherited(Building)) { collision = true; break; }
 			}
 			if (!collision) return pos;
 		}

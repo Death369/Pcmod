@@ -1,3 +1,4 @@
+#ifdef SERVER
 modded class GG_SYSBLOCK
 {
 	ref Timer m_PcDmgTimer;
@@ -145,3 +146,4 @@ modded class GG_SYSBLOCK
 		}
 	}
 };
+#endif

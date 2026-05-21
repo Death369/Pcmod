@@ -1,3 +1,4 @@
+#ifdef SERVER
 modded class MissionServer
 {
 	ref CfgPcServerConfig m_PcConfig;
@@ -76,3 +77,5 @@ modded class MissionServer
 		Print("[PCserver] Spawned " + className + " at " + spawnPos + " for finished hack.");
 	}
 };
+
+#endif

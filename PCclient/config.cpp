@@ -43,14 +43,6 @@ class CfgMods
 					"PCclient/gui/imagesets/cj_icons.imageset"
 				};
 			};
-			class gameScriptModule
-			{
-				value="";
-				files[]=
-				{
-					"PCclient/Scripts/3_Game"
-				};
-			};
 			class worldScriptModule
 			{
 				value="";

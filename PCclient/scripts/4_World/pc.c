@@ -36,58 +36,76 @@ class GG_SYSBLOCK extends ItemBase
 		UpdateDisplay();
 	}
 
-	void UpdateDisplay() { 
-		if (!HasMONITOR() || !HasOS() || !GetCompEM() || !GetCompEM().IsWorking()) { ClearDisplay(); return; }
+	void UpdateDisplay() 
+	{ 
+		#ifndef SERVER
+		if (!GetGame() || !HasMONITOR() || !HasOS() || !GetCompEM() || !GetCompEM().IsWorking()) 
+		{ 
+			ClearDisplay(); 
+			return; 
+		}
+		
 		EntityAI h_ent = FindAttachmentBySlotName("hdd");
-		GG_HDD h_drv = GG_HDD.Cast(h_ent);	
-
-		if (!h_drv)
+		if (!h_ent) 
 		{
 			SetObjectTexture(0, "PCclient\\HDD\\data\\OS.paa");
 			for (int l = 1; l <= 10; l++) { SetObjectTexture(l, ""); }
 			return;
 		}
+		
+		GG_HDD h_drv = GG_HDD.Cast(h_ent);
+		if (!h_drv) return;
 
 		if (h_drv.IsDecrypted())
 		{
-			SetObjectTexture(0, "PCclient\\HDD\\data\\OS_LOC.paa");
-			vector p = h_drv.GetStashPos();
-			int pX = (int)p[0];
-			int pZ = (int)p[2];
-			string sX = pX.ToString();
-			string sZ = pZ.ToString();
+			vector v_pos = h_drv.GetStashPos();
+			float v_x = v_pos[0];
+			float v_z = v_pos[2];
+			int i_x = (int)v_x;
+			int i_z = (int)v_z;
+			string s_x = i_x.ToString();
+			string s_z = i_z.ToString();
 
-			int i;
-			for (i = 0; i < 5; i++) {
-				if (i < sX.Length()) SetDigit(i + 1, sX.Substring(i, 1));
+			SetObjectTexture(0, "PCclient\\HDD\\data\\OS_LOC.paa");
+			
+			for (int i = 0; i < 5; i++) {
+				if (i < s_x.Length()) SetDigit(i + 1, s_x.Substring(i, 1));
 				else SetObjectTexture(i + 1, "");
 			}
-			for (i = 0; i < 5; i++) {
-				if (i < sZ.Length()) SetDigit(i + 6, sZ.Substring(i, 1));
-				else SetObjectTexture(i + 6, "");
+			for (int j = 0; j < 5; j++) {
+				if (j < s_z.Length()) SetDigit(j + 6, s_z.Substring(j, 1));
+				else SetObjectTexture(j + 6, "");
 			}
 		}
 		else
 		{
+			float f_p = h_drv.GetProgress();
+			int i_p = (int)f_p;
+			string p_s = i_p.ToString() + "%";
+			
 			SetObjectTexture(0, "PCclient\\HDD\\data\\OS.paa");
-			string pStr = ((int)h_drv.GetProgress()).ToString() + "%";
 			for (int k = 0; k < 10; k++) {
-				if (k < pStr.Length()) SetDigit(k + 1, pStr.Substring(k, 1));
+				if (k < p_s.Length()) SetDigit(k + 1, p_s.Substring(k, 1));
 				else SetObjectTexture(k + 1, "");
 			}
 		}
+		#endif
 	}
 
 	void SetDigit(int sIdx, string v)
 	{
+		#ifndef SERVER
 		if (v == "%") SetObjectTexture(sIdx, "PCclient\\HDD\\letter1\\100.paa");
 		else SetObjectTexture(sIdx, "PCclient\\HDD\\cifra\\" + v + ".paa");
+		#endif
 	}
 
 	void ClearDisplay()
 	{
+		#ifndef SERVER
 		SetObjectTexture(0, "");
 		for (int m = 1; m <= 10; m++) { SetObjectTexture(m, ""); }
+		#endif
 	}
 
 	override void SetActions()
@@ -120,7 +138,9 @@ class GG_SYSBLOCK extends ItemBase
 	override void OnSwitchOff()
 	{
 		super.OnSwitchOff();
+		#ifndef SERVER
 		PlaySoundSet(m_SoundTurnOff, SOUND_TURN_OFF, 0, 0);
+		#endif
 		if (m_Light) m_Light.FadeOut(0.05);
 		m_Light = NULL;
 		SwitchOn(false);
@@ -129,6 +149,7 @@ class GG_SYSBLOCK extends ItemBase
 	override void OnWorkStart()
 	{
 		super.OnWorkStart();
+		#ifndef SERVER
 		PlaySoundSetLoop(m_SoundHummingLoop, SOUND_HUMMING, 0.1, 0.3);	
         if ( GetGame().IsClient() || !GetGame().IsMultiplayer() )
         {
@@ -150,21 +171,19 @@ class GG_SYSBLOCK extends ItemBase
 			m_Light.SetCastShadow(true);
 			m_Light.SetFlareVisible(false);
         }
+		#endif
 		SwitchOn(true);
-	}
-
-	override void OnWork( float consumed_energy )
-	{
-		super.OnWork(consumed_energy);
 	}
 
 	override void OnWorkStop()
 	{
 		super.OnWorkStop();
+		#ifndef SERVER
 		StopSoundSet(m_SoundHummingLoop);
 		
 		if ( GetGame().IsClient() || !GetGame().IsMultiplayer() )
 			PlaySoundSet(m_SoundSys, SOUND_SHUTDOWN, 0, 0);
+		#endif
 
 		if (m_Light) m_Light.FadeOut(0.05);
 		m_Light = NULL;
@@ -191,7 +210,7 @@ class GG_SYSBLOCK extends ItemBase
 
 modded class ActionDeployObject
 {    
-    void SetupAnimation( ItemBase item )
+    override void SetupAnimation( ItemBase item )
     {
         if ( item.IsDeployable() )
         {
