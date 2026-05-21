@@ -1,0 +1,62 @@
+ImageSetClass {
+ Name "cj_pc_icons"
+ RefSize 2048 3560
+ Textures {
+  ImageSetTextureClass {
+   mpix 1
+   path "{65EAE1D863091478}PCclient/gui/imagesets/cj_icons.edds"
+  }
+ }
+ Images {
+  ImageSetDefClass cj_screen {
+   Name "cj_screen"
+   Pos 28 23
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_mainboard {
+   Name "cj_mainboard"
+   Pos 165 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_cpu {
+   Name "cj_cpu"
+   Pos 296 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_ram {
+   Name "cj_ram"
+   Pos 443 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_hdd {
+   Name "cj_hdd"
+   Pos 576 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_hdd_broken {
+   Name "cj_hdd_broken"
+   Pos 697 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_mouse {
+   Name "cj_mouse"
+   Pos 808 16
+   Size 130 130
+   Flags 0
+  }
+  ImageSetDefClass cj_keyboard {
+   Name "cj_keyboard"
+   Pos 937 16
+   Size 130 130
+   Flags 0
+  }
+ }
+ Groups {
+ }
+}
