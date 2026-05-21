@@ -30,7 +30,7 @@ class CfgPcconfigHandler
 	//---------------------------------------------------------------------------------------
 	static void SyncDataSend(notnull Man player)
 	{
-		GetGame().RPCSingleParam(player, ERPCs.RPC_CFG_GAMEPLAY_SYNC, new Param1<CfgPcconfigJson>(m_Data), true, player.GetIdentity());
+		GetGame().RPCSingleParam(player, 36901, new Param1<CfgPcconfigJson>(m_Data), true, player.GetIdentity());
 	}
 	
 	//---------------------------------------------------------------------------------------

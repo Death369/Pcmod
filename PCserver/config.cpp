@@ -22,7 +22,7 @@ class CfgMods
 		hidePicture=1;
 		name="PCserver";
 		credits="";
-		author="BDSM / Fixed by Gemini";
+		author="";
 		authorID="0";
 		version=1;
 		extra=0;

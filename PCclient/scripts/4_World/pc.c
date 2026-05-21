@@ -21,6 +21,7 @@ class GG_SYSBLOCK extends ItemBase
 	override void EEItemAttached ( EntityAI item, string slot_name )
 	{
 		super.EEItemAttached (item, slot_name);
+		UpdateDisplay();
 	}	
 	
 	override void EEItemDetached ( EntityAI item, string slot_name )
@@ -32,6 +33,61 @@ class GG_SYSBLOCK extends ItemBase
 				m_Light.FadeOut(0.05);
 			m_Light = NULL;
 		}
+		UpdateDisplay();
+	}
+
+	void UpdateDisplay() { 
+		if (!HasMONITOR() || !HasOS() || !GetCompEM() || !GetCompEM().IsWorking()) { ClearDisplay(); return; }
+		EntityAI h_ent = FindAttachmentBySlotName("hdd");
+		GG_HDD h_drv = GG_HDD.Cast(h_ent);	
+
+		if (!h_drv)
+		{
+			SetObjectTexture(0, "PCclient\\HDD\\data\\OS.paa");
+			for (int l = 1; l <= 10; l++) { SetObjectTexture(l, ""); }
+			return;
+		}
+
+		if (h_drv.IsDecrypted())
+		{
+			SetObjectTexture(0, "PCclient\\HDD\\data\\OS_LOC.paa");
+			vector p = h_drv.GetStashPos();
+			int pX = (int)p[0];
+			int pZ = (int)p[2];
+			string sX = pX.ToString();
+			string sZ = pZ.ToString();
+
+			int i;
+			for (i = 0; i < 5; i++) {
+				if (i < sX.Length()) SetDigit(i + 1, sX.Substring(i, 1));
+				else SetObjectTexture(i + 1, "");
+			}
+			for (i = 0; i < 5; i++) {
+				if (i < sZ.Length()) SetDigit(i + 6, sZ.Substring(i, 1));
+				else SetObjectTexture(i + 6, "");
+			}
+		}
+		else
+		{
+			SetObjectTexture(0, "PCclient\\HDD\\data\\OS.paa");
+			string pStr = ((int)h_drv.GetProgress()).ToString() + "%";
+			for (int k = 0; k < 10; k++) {
+				if (k < pStr.Length()) SetDigit(k + 1, pStr.Substring(k, 1));
+				else SetObjectTexture(k + 1, "");
+			}
+		}
+	}
+
+	void SetDigit(int sIdx, string v)
+	{
+		if (v == "%") SetObjectTexture(sIdx, "PCclient\\HDD\\letter1\\100.paa");
+		else SetObjectTexture(sIdx, "PCclient\\HDD\\cifra\\" + v + ".paa");
+	}
+
+	void ClearDisplay()
+	{
+		SetObjectTexture(0, "");
+		for (int m = 1; m <= 10; m++) { SetObjectTexture(m, ""); }
 	}
 
 	override void SetActions()

@@ -4,6 +4,11 @@ class GG_compukter_army extends ItemBase
     int CanCheckGG_compukter_army = 0;
     ref Timer   m_CheckGG_compukter_armyTimer;
 
+	void GG_compukter_army()
+	{
+		RegisterNetSyncVariableInt("CanCheckGG_compukter_army");
+	}
+
     void GG_compukter_armyTimer()
 	{
 		--CanCheckGG_compukter_army;

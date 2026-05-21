@@ -18,7 +18,7 @@ class ActionActivateSysblock: ActionContinuousBase
 	
 	override bool ActionCondition( PlayerBase player, ActionTarget target, ItemBase item )
 	{
-		if( item.!IsRuined() )
+		if( !item.IsRuined() )
 		{
 			return true;
 		}

@@ -41,6 +41,12 @@ modded class MissionServer
 		}
 	}
 
+	override void InvokeOnConnect(PlayerBase player, PlayerIdentity identity)
+	{
+		super.InvokeOnConnect(player, identity);
+		CfgPcconfigHandler.SyncDataSend(player);
+	}
+
 	CfgPcServerConfig GetConfig() { return m_PcConfig; }
 
 	void SpawnStashAt(vector center, string type)

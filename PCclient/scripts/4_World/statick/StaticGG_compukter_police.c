@@ -4,6 +4,11 @@ class GG_compukter_police extends ItemBase
     int CanCheckGG_compukter_police = 0;
     ref Timer   m_CheckGG_compukter_policeTimer;
 
+	void GG_compukter_police()
+	{
+		RegisterNetSyncVariableInt("CanCheckGG_compukter_police");
+	}
+
     void GG_compukter_policeTimer()
 	{
 		--CanCheckGG_compukter_police;

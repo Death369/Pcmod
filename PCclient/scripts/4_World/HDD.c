@@ -11,7 +11,7 @@ class GG_HDD extends ItemBase
 		RegisterNetSyncVariableFloat("m_StashPosX");
 		RegisterNetSyncVariableFloat("m_StashPosY");
 		RegisterNetSyncVariableFloat("m_StashPosZ");
-		RegisterNetSyncVariableFloat("m_DecryptionProgress", 0.0, 100.0);
+		RegisterNetSyncVariableFloat("m_DecryptionProgress");
 		RegisterNetSyncVariableBool("m_HasSpawnedStash");
 	}
 

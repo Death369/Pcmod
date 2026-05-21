@@ -5,6 +5,11 @@ class GG_compukter extends ItemBase
     int CanCheckGG_compukter = 0;
     ref Timer   m_CheckGG_compukterTimer;
 
+	void GG_compukter()
+	{
+		RegisterNetSyncVariableInt("CanCheckGG_compukter");
+	}
+
     void GG_compukterTimer()
 	{
 		--CanCheckGG_compukter;
